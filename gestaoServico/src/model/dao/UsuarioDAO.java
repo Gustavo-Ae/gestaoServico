@@ -61,7 +61,7 @@ public class UsuarioDAO {
                 usu.setFone(rs.getString(3));
                 usu.setUsuario(rs.getString(4));
                 usu.setSenha(rs.getString(5));
-                usu.setUsuario(rs.getString(6));
+                usu.setPerfil(rs.getString(6));
                 
                 return usu;
                 
