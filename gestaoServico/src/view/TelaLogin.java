@@ -161,11 +161,22 @@ public class TelaLogin extends javax.swing.JFrame {
         Usuario usuarioEntrou = usuarioDAO.login(usuario, senha);
         
         if(usuarioEntrou != null){
+            
             TelaPrincipal telaPrincipal = new TelaPrincipal();
             telaPrincipal.setVisible(true);
-            
             this.dispose();
             
+            TelaPrincipal.jLabel_nome.setText(usuarioEntrou.getNome());
+            
+            if(usuarioEntrou.getPerfil().equals("Administrador")){
+                TelaPrincipal.jMenu_relatorio.setEnabled(true);
+                TelaPrincipal.jMenuItem_cadastroUsuario.setEnabled(true);
+                TelaPrincipal.jLabel_nome.setForeground(Color.red);
+            }else{
+                TelaPrincipal.jMenu_relatorio.setEnabled(false);
+                TelaPrincipal.jMenuItem_cadastroUsuario.setEnabled(false);
+            }
+           
         }else{
             JOptionPane.showMessageDialog(this,"Usuário e/ou senha inválido(s)","Aviso", JOptionPane.INFORMATION_MESSAGE);
         }

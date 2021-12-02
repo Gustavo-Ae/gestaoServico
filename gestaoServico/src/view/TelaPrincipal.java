@@ -73,6 +73,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem_cadastroUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem_cadastroUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/add-user.png"))); // NOI18N
         jMenuItem_cadastroUsuario.setText("Usuário");
+        jMenuItem_cadastroUsuario.setEnabled(false);
         jMenuItem_cadastroUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem_cadastroUsuarioActionPerformed(evt);
@@ -83,6 +84,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar_menu.add(jMenu_cadastro);
 
         jMenu_relatorio.setText("Relatório");
+        jMenu_relatorio.setEnabled(false);
 
         jMenuItem_relatorioServicos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem_relatorioServicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/servicos.png"))); // NOI18N
@@ -212,15 +214,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane_areaTrabalho;
     private javax.swing.JLabel jLabel_data;
     private javax.swing.JLabel jLabel_imagem;
-    private javax.swing.JLabel jLabel_nome;
+    public static javax.swing.JLabel jLabel_nome;
     private javax.swing.JMenuBar jMenuBar_menu;
     private javax.swing.JMenuItem jMenuItem_cadastroCliente;
     private javax.swing.JMenuItem jMenuItem_cadastroOrdemServico;
-    private javax.swing.JMenuItem jMenuItem_cadastroUsuario;
+    public static javax.swing.JMenuItem jMenuItem_cadastroUsuario;
     private javax.swing.JMenuItem jMenuItem_relatorioServicos;
     private javax.swing.JMenuItem jMenuItem_sair;
     private javax.swing.JMenu jMenu_cadastro;
     private javax.swing.JMenu jMenu_opcoes;
-    private javax.swing.JMenu jMenu_relatorio;
+    public static javax.swing.JMenu jMenu_relatorio;
     // End of variables declaration//GEN-END:variables
 }
