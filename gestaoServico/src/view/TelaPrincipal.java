@@ -39,11 +39,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jDesktopPane_areaTrabalho.setPreferredSize(new java.awt.Dimension(640, 480));
+
         javax.swing.GroupLayout jDesktopPane_areaTrabalhoLayout = new javax.swing.GroupLayout(jDesktopPane_areaTrabalho);
         jDesktopPane_areaTrabalho.setLayout(jDesktopPane_areaTrabalhoLayout);
         jDesktopPane_areaTrabalhoLayout.setHorizontalGroup(
             jDesktopPane_areaTrabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 662, Short.MAX_VALUE)
+            .addGap(0, 640, Short.MAX_VALUE)
         );
         jDesktopPane_areaTrabalhoLayout.setVerticalGroup(
             jDesktopPane_areaTrabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,7 +124,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(jDesktopPane_areaTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
                         .addComponent(jLabel_imagem)
                         .addGap(60, 60, 60))
                     .addGroup(layout.createSequentialGroup()
@@ -134,7 +136,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane_areaTrabalho)
+            .addComponent(jDesktopPane_areaTrabalho, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addComponent(jLabel_nome)
@@ -154,7 +156,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem_relatorioServicosActionPerformed
 
     private void jMenuItem_cadastroUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_cadastroUsuarioActionPerformed
-        // TODO add your handling code here:
+
+        TelaUsuario telaUsuario = new TelaUsuario();
+        telaUsuario.setVisible(true);
+        jDesktopPane_areaTrabalho.add(telaUsuario);
+
     }//GEN-LAST:event_jMenuItem_cadastroUsuarioActionPerformed
 
     private void jMenuItem_sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_sairActionPerformed
