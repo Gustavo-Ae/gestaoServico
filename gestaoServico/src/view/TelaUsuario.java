@@ -68,6 +68,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         jButton_adicionar.setToolTipText("Adicionar");
         jButton_adicionar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_adicionar.setPreferredSize(new java.awt.Dimension(80, 80));
+        jButton_adicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_adicionarActionPerformed(evt);
+            }
+        });
 
         jButton_consultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/read.png"))); // NOI18N
         jButton_consultar.setToolTipText("Consultar");
@@ -183,6 +188,37 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_jButton_consultarActionPerformed
+
+    private void jButton_adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_adicionarActionPerformed
+
+        if(jTextField_nome.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Preencha o campo Nome","Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(jTextField_usuario.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Preencha o campo Usuário","Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(jTextField_senha.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Preencha o campo Senha","Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(jComboBox_perfil.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(this,"Selecione algum valor do campo Perfil","Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+
+            Usuario usuario = new Usuario();
+
+            usuario.setNome(jTextField_nome.getText());
+            usuario.setFone(jTextField_telefone.getText());
+            usuario.setUsuario(jTextField_usuario.getText());
+            usuario.setSenha(jTextField_senha.getText());
+            usuario.setPerfil(jComboBox_perfil.getSelectedItem().toString());
+
+            usuarioDAO.insert(usuario);
+
+            limparEntradas();
+        }
+    }//GEN-LAST:event_jButton_adicionarActionPerformed
 
     public void limparEntradas(){
         jTextField_nome.setText("");
