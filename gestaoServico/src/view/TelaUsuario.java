@@ -93,6 +93,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         jButton_deletar.setToolTipText("deletar");
         jButton_deletar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_deletar.setPreferredSize(new java.awt.Dimension(80, 80));
+        jButton_deletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_deletarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -257,6 +262,31 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Consulte o usuário antes de alterar!","Aviso",JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButton_alterarActionPerformed
+
+    private void jButton_deletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_deletarActionPerformed
+
+        if(id != null){
+            int perguntaConfirmar = JOptionPane.showConfirmDialog(this, "Realmente deseja deletar o usuário com \n id: "+id+"\n Nome: "+jTextField_nome.getText(),"Pergunta",JOptionPane.YES_NO_OPTION);
+            
+            if(perguntaConfirmar == 0){
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                
+                Usuario usuario = new Usuario();
+                
+                usuario.setId(Integer.parseInt(id));
+                
+                usuarioDAO.delete(usuario);
+                
+                id = null;
+                
+                limparEntradas();
+            }
+            
+        }else{
+            JOptionPane.showMessageDialog(this, "Consulte o usuário antes de deletar!","Aviso",JOptionPane.INFORMATION_MESSAGE);
+        }
+
+    }//GEN-LAST:event_jButton_deletarActionPerformed
 
     public void limparEntradas(){
         jTextField_nome.setText("");

@@ -100,6 +100,29 @@ public class UsuarioDAO {
         }        
     }
     
+      public void delete(Usuario usuario){
+        
+        Connection con = ConnectionFactory.getConexao();
+            
+        PreparedStatement acessoBD = null;
+        
+        try{
+            acessoBD = con.prepareStatement("DELETE FROM tbusuario WHERE idUser = ?");
+            
+            acessoBD.setInt(1, usuario.getId());
+            
+            acessoBD.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Usuário deletado com sucesso","Aviso", JOptionPane.INFORMATION_MESSAGE);
+            
+        }catch(SQLException sql){
+            JOptionPane.showMessageDialog(null,"Erro ao deletar o usuario no banco de dados", "ERRO", JOptionPane.ERROR_MESSAGE);
+            throw new RuntimeException("Houve um erro no método delete() :",sql);
+        }finally{
+            ConnectionFactory.fecharConexao(con, acessoBD);
+        }
+    }
+      
     public Usuario login(String usuario , String senha){
         
         Connection con = ConnectionFactory.getConexao();
