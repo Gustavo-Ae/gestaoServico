@@ -5,6 +5,10 @@
  */
 package view;
 
+import controller.Cliente;
+import javax.swing.JOptionPane;
+import model.dao.ClienteDAO;
+
 /**
  *
  * @author Josiene
@@ -79,6 +83,11 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         jButton_adicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/create.png"))); // NOI18N
         jButton_adicionar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_adicionar.setPreferredSize(new java.awt.Dimension(80, 80));
+        jButton_adicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_adicionarActionPerformed(evt);
+            }
+        });
 
         jButton_alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/update.png"))); // NOI18N
         jButton_alterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -168,6 +177,35 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_nomeActionPerformed
 
+    private void jButton_adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_adicionarActionPerformed
+
+        if(jTextField_nome.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Preencha o campo Nome","Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(jTextField_telefone.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Preencha o campo Telefone","Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            ClienteDAO clienteDAO = new ClienteDAO();
+            
+            Cliente cliente = new Cliente();
+            
+            cliente.setNome(jTextField_nome.getText());
+            cliente.setEndereco(jTextField_endereco.getText());
+            cliente.setFone(jTextField_telefone.getText());
+            cliente.setEmail(jTextField_email.getText());
+            
+            clienteDAO.insert(cliente);
+            
+            limparEntradas();
+        }
+    }//GEN-LAST:event_jButton_adicionarActionPerformed
+
+    public void limparEntradas(){
+        jTextField_nome.setText("");
+        jTextField_endereco.setText("");
+        jTextField_telefone.setText("");
+        jTextField_email.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_adicionar;
