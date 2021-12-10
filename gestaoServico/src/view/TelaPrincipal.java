@@ -65,6 +65,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem_cadastroCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem_cadastroCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/adicionar-cliente.png"))); // NOI18N
         jMenuItem_cadastroCliente.setText("Cliente");
+        jMenuItem_cadastroCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_cadastroClienteActionPerformed(evt);
+            }
+        });
         jMenu_cadastro.add(jMenuItem_cadastroCliente);
 
         jMenuItem_cadastroOrdemServico.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
@@ -180,6 +185,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel_data.setText(dataAtual.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
     }//GEN-LAST:event_formWindowActivated
+
+    private void jMenuItem_cadastroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_cadastroClienteActionPerformed
+
+        TelaCliente telaCliente = new TelaCliente();
+        telaCliente.setVisible(true);
+        jDesktopPane_areaTrabalho.add(telaCliente);
+
+    }//GEN-LAST:event_jMenuItem_cadastroClienteActionPerformed
 
     /**
      * @param args the command line arguments
