@@ -6,6 +6,7 @@ import controller.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 import view.TelaCliente;
@@ -34,6 +35,33 @@ public class ClienteDAO{
         }catch(Exception e){
             System.out.println("Erro no método insert() -> "+e.getMessage());
             e.printStackTrace();
+        }finally{
+            ConnectionFactory.fecharConexao(con, acessoBD);
+        }   
+    }
+     
+      public void update(Cliente cliente){
+        
+        Connection con = ConnectionFactory.getConexao();
+       
+        PreparedStatement acessoBD = null;
+        
+        try{
+            acessoBD = con.prepareStatement("UPDATE tbclientes SET nomeCliente = ?, enderecoCliente = ?, foneCliente = ?, emailCliente = ? WHERE idCliente = ?");
+            
+            acessoBD.setString(1, cliente.getNome());
+            acessoBD.setString(2, cliente.getEndereco());
+            acessoBD.setString(3, cliente.getFone());
+            acessoBD.setString(4, cliente.getEmail());
+            acessoBD.setInt(5, cliente.getId());
+            
+            acessoBD.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, cliente.getNome()+" atualizado com sucesso","Aviso", JOptionPane.INFORMATION_MESSAGE);
+            
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar o banco de dados","ERRO",JOptionPane.ERROR_MESSAGE);
+            throw new RuntimeException("Houve um erro no método update() :",e);    
         }finally{
             ConnectionFactory.fecharConexao(con, acessoBD);
         }   

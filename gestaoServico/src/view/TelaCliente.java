@@ -15,9 +15,7 @@ import model.dao.ClienteDAO;
  */
 public class TelaCliente extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form TelaCliente
-     */
+    String id;
     public TelaCliente() {
         initComponents();
     }
@@ -69,13 +67,13 @@ public class TelaCliente extends javax.swing.JInternalFrame {
 
         jTable_clientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "idCliente", "nomeCliente", "enderecoCliente", "foneCliente", "emailCliente"
             }
         ));
         jTable_clientes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -102,6 +100,11 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         jButton_alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/update.png"))); // NOI18N
         jButton_alterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_alterar.setPreferredSize(new java.awt.Dimension(80, 80));
+        jButton_alterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_alterarActionPerformed(evt);
+            }
+        });
 
         jButton_deletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/delete.png"))); // NOI18N
         jButton_deletar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -229,6 +232,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     private void jTable_clientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_clientesMouseClicked
 
          if(jTable_clientes.getSelectedRow() != -1){
+            id = jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 0).toString();
             jTextField_nome.setText(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 1).toString());
             jTextField_endereco.setText(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 2).toString());
             jTextField_telefone.setText(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 3).toString());
@@ -240,6 +244,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     private void jTable_clientesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_clientesKeyReleased
 
         if(jTable_clientes.getSelectedRow() != -1){
+            id = jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 0).toString();
             jTextField_nome.setText(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 1).toString());
             jTextField_endereco.setText(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 2).toString());
             jTextField_telefone.setText(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 3).toString());
@@ -247,6 +252,36 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_jTable_clientesKeyReleased
+
+    private void jButton_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_alterarActionPerformed
+
+        if(id != null){
+            int perguntaConfirmar = JOptionPane.showConfirmDialog(this, "Realmente deseja alterar o cliente com \n id: "+id+"\n Nome: "+jTextField_nome.getText(),"Pergunta",JOptionPane.YES_NO_OPTION);
+            
+            if(perguntaConfirmar == 0){
+                if(jTextField_nome.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(this,"Preencha o campo Nome","Aviso", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else if(jTextField_telefone.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(this,"Preencha o campo Telefone","Aviso", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                                    
+                    Cliente cliente = new Cliente();
+
+                    cliente.setId(Integer.parseInt(id));
+                    cliente.setNome(jTextField_nome.getText());
+                    cliente.setEndereco(jTextField_endereco.getText());
+                    cliente.setFone(jTextField_telefone.getText());
+                    cliente.setEmail(jTextField_email.getText());
+
+                    ClienteDAO clienteDAO = new ClienteDAO();
+
+                    clienteDAO.update(cliente);
+                
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton_alterarActionPerformed
 
     public void limparEntradas(){
         jTextField_nome.setText("");
