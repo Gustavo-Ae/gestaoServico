@@ -8,7 +8,6 @@ package view;
 import controller.Cliente;
 import javax.swing.JOptionPane;
 import model.dao.ClienteDAO;
-import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -79,6 +78,16 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable_clientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_clientesMouseClicked(evt);
+            }
+        });
+        jTable_clientes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTable_clientesKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable_clientes);
 
         jButton_adicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/create.png"))); // NOI18N
@@ -216,6 +225,28 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         clienteDAO.pesquisarCliente(jTextField_nomePesquisado.getText());
         
     }//GEN-LAST:event_jTextField_nomePesquisadoKeyReleased
+
+    private void jTable_clientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_clientesMouseClicked
+
+         if(jTable_clientes.getSelectedRow() != -1){
+            jTextField_nome.setText(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 1).toString());
+            jTextField_endereco.setText(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 2).toString());
+            jTextField_telefone.setText(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 3).toString());
+            jTextField_email.setText(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 4).toString());
+        }
+
+    }//GEN-LAST:event_jTable_clientesMouseClicked
+
+    private void jTable_clientesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_clientesKeyReleased
+
+        if(jTable_clientes.getSelectedRow() != -1){
+            jTextField_nome.setText(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 1).toString());
+            jTextField_endereco.setText(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 2).toString());
+            jTextField_telefone.setText(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 3).toString());
+            jTextField_email.setText(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 4).toString());
+        }
+        
+    }//GEN-LAST:event_jTable_clientesKeyReleased
 
     public void limparEntradas(){
         jTextField_nome.setText("");
