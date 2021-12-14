@@ -66,7 +66,30 @@ public class ClienteDAO{
             ConnectionFactory.fecharConexao(con, acessoBD);
         }   
     }
-     
+      
+       public void delete(Cliente cliente){
+        
+        Connection con = ConnectionFactory.getConexao();
+            
+        PreparedStatement acessoBD = null;
+        
+        try{
+            acessoBD = con.prepareStatement("DELETE FROM tbclientes WHERE idCliente = ?");
+            
+            acessoBD.setInt(1, cliente.getId());
+            
+            acessoBD.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, cliente.getNome()+" foi deletado da lista","Aviso", JOptionPane.INFORMATION_MESSAGE);
+            
+        }catch(SQLException sql){
+            JOptionPane.showMessageDialog(null,"Erro ao deletar o cliente no banco de dados", "ERRO", JOptionPane.ERROR_MESSAGE);
+            throw new RuntimeException("Houve um erro no método delete() :",sql);
+        }finally{
+            ConnectionFactory.fecharConexao(con, acessoBD);
+        }
+    }
+        
     public void pesquisarCliente(String letra){
         
         Connection con = ConnectionFactory.getConexao();

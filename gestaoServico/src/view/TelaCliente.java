@@ -109,6 +109,11 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         jButton_deletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/delete.png"))); // NOI18N
         jButton_deletar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_deletar.setPreferredSize(new java.awt.Dimension(80, 80));
+        jButton_deletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_deletarActionPerformed(evt);
+            }
+        });
 
         jTextField_nomePesquisado.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -237,6 +242,8 @@ public class TelaCliente extends javax.swing.JInternalFrame {
             jTextField_endereco.setText(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 2).toString());
             jTextField_telefone.setText(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 3).toString());
             jTextField_email.setText(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 4).toString());
+            
+            jButton_adicionar.setEnabled(false);
         }
 
     }//GEN-LAST:event_jTable_clientesMouseClicked
@@ -249,6 +256,8 @@ public class TelaCliente extends javax.swing.JInternalFrame {
             jTextField_endereco.setText(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 2).toString());
             jTextField_telefone.setText(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 3).toString());
             jTextField_email.setText(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 4).toString());
+            
+            jButton_adicionar.setEnabled(false);
         }
         
     }//GEN-LAST:event_jTable_clientesKeyReleased
@@ -277,13 +286,39 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                     ClienteDAO clienteDAO = new ClienteDAO();
 
                     clienteDAO.update(cliente);
-                
+                    
+                    limparEntradas();
+                    
+                    jButton_adicionar.setEnabled(true);    
                 }
             }
         }
     }//GEN-LAST:event_jButton_alterarActionPerformed
 
+    private void jButton_deletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_deletarActionPerformed
+        if(id != null){
+            int perguntaConfirmar = JOptionPane.showConfirmDialog(this, "Realmente deseja deletar o cliente com \n id: "+id+"\n Nome: "+jTextField_nome.getText(),"Pergunta",JOptionPane.YES_NO_OPTION);
+
+            Cliente cliente = new Cliente();
+
+            cliente.setId(Integer.parseInt(id));
+            cliente.setNome(jTextField_nome.getText());
+            cliente.setEndereco(jTextField_endereco.getText());
+            cliente.setFone(jTextField_telefone.getText());
+            cliente.setEmail(jTextField_email.getText());
+
+            ClienteDAO clienteDAO = new ClienteDAO();
+
+            clienteDAO.delete(cliente);
+
+            limparEntradas();
+
+            jButton_adicionar.setEnabled(true);    
+          }     
+    }//GEN-LAST:event_jButton_deletarActionPerformed
+
     public void limparEntradas(){
+        id = null;
         jTextField_nome.setText("");
         jTextField_endereco.setText("");
         jTextField_telefone.setText("");
