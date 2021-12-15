@@ -7,6 +7,7 @@ package view;
 
 import controller.Cliente;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.dao.ClienteDAO;
 
 /**
@@ -65,6 +66,11 @@ public class TelaCliente extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Email:");
 
+        jTable_clientes = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         jTable_clientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -73,9 +79,19 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "idCliente", "nomeCliente", "enderecoCliente", "foneCliente", "emailCliente"
+                "id", "nome", "endereco", "fone", "email"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable_clientes.setFocusable(false);
+        jTable_clientes.getTableHeader().setReorderingAllowed(false);
         jTable_clientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable_clientesMouseClicked(evt);
@@ -323,6 +339,8 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         jTextField_endereco.setText("");
         jTextField_telefone.setText("");
         jTextField_email.setText("");
+        jTextField_nomePesquisado.setText("");
+        ((DefaultTableModel) jTable_clientes.getModel()).setRowCount(0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

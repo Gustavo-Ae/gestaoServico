@@ -97,7 +97,7 @@ public class ClienteDAO{
         ResultSet rs = null;
                 
         try{
-            acessoBD = con.prepareStatement("SELECT * FROM tbclientes WHERE nomeCliente LIKE ?");
+            acessoBD = con.prepareStatement("SELECT idCliente as id , nomeCliente as nome , enderecoCliente as endereco, foneCliente as fone , emailCliente as email FROM tbclientes WHERE nomeCliente LIKE ?");
             acessoBD.setString(1, letra + "%");
             rs = acessoBD.executeQuery();
             
