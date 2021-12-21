@@ -75,6 +75,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem_cadastroOrdemServico.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem_cadastroOrdemServico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/ordemServico.png"))); // NOI18N
         jMenuItem_cadastroOrdemServico.setText("Ordem Serviço");
+        jMenuItem_cadastroOrdemServico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_cadastroOrdemServicoActionPerformed(evt);
+            }
+        });
         jMenu_cadastro.add(jMenuItem_cadastroOrdemServico);
 
         jMenuItem_cadastroUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
@@ -193,6 +198,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesktopPane_areaTrabalho.add(telaCliente);
 
     }//GEN-LAST:event_jMenuItem_cadastroClienteActionPerformed
+
+    private void jMenuItem_cadastroOrdemServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_cadastroOrdemServicoActionPerformed
+        TelaOS os = new TelaOS();
+        os.setVisible(true);
+        jDesktopPane_areaTrabalho.add(os);
+    }//GEN-LAST:event_jMenuItem_cadastroOrdemServicoActionPerformed
 
     /**
      * @param args the command line arguments

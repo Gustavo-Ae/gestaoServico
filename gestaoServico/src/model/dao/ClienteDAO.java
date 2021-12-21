@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 import view.TelaCliente;
+import view.TelaOS;
 
 
 public class ClienteDAO{
@@ -90,7 +91,7 @@ public class ClienteDAO{
         }
     }
         
-    public void pesquisarCliente(String letra){
+    public void pesquisa_TelaCliente(String letra){
         
         Connection con = ConnectionFactory.getConexao();
         PreparedStatement acessoBD = null;
@@ -104,9 +105,27 @@ public class ClienteDAO{
             TelaCliente.jTable_clientes.setModel(DbUtils.resultSetToTableModel(rs));
             
         }catch(Exception e){
-            throw new RuntimeException("Erro no método pesquisarCliente():",e);
+            throw new RuntimeException("Erro no método pesquisa_TelaCliente():",e);
         }finally{
             ConnectionFactory.fecharConexao(con, acessoBD, rs);
         }   
-    }     
+    } 
+    
+    public void pesquisa_TelaOS(String letra){
+        Connection con = ConnectionFactory.getConexao();
+        PreparedStatement acessoBD = null;
+        ResultSet rs = null;
+        
+        try {
+            acessoBD = con.prepareStatement("SELECT idCliente as Id, nomeCliente as Nome , foneCliente as Fone FROM tbclientes WHERE nomeCliente LIKE ?");
+            acessoBD.setString(1, letra+ "%");
+            rs = acessoBD.executeQuery();
+            
+            TelaOS.jTable_clientes.setModel(DbUtils.resultSetToTableModel(rs));
+        }catch(Exception e){
+            throw new RuntimeException("Erro no método pesquisa_TelaOS():",e);
+        }finally{
+            ConnectionFactory.fecharConexao(con, acessoBD, rs);
+        } 
+    }
 }

@@ -246,7 +246,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     private void jTextField_nomePesquisadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_nomePesquisadoKeyReleased
         ClienteDAO clienteDAO = new ClienteDAO();
         
-        clienteDAO.pesquisarCliente(jTextField_nomePesquisado.getText());
+        clienteDAO.pesquisa_TelaCliente(jTextField_nomePesquisado.getText());
         
     }//GEN-LAST:event_jTextField_nomePesquisadoKeyReleased
 
