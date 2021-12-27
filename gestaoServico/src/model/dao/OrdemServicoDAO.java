@@ -5,6 +5,7 @@ import connection.ConnectionFactory;
 import controller.OrdemServico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 
@@ -37,6 +38,45 @@ public class OrdemServicoDAO {
         }finally{
             ConnectionFactory.fecharConexao(con, acessoBD);
         }   
+    }
+    
+    public OrdemServico pesquisarOs(String id){
+        Connection con = ConnectionFactory.getConexao();
+        PreparedStatement acessoBD = null;
+        ResultSet rs = null;
+        
+        try{
+            acessoBD = con.prepareStatement("SELECT * FROM tb_ordemservico WHERE codigo = ?");
+            acessoBD.setString(1, id);
+            rs = acessoBD.executeQuery();
+            
+            if(rs.next()){
+                OrdemServico ordemServico = new OrdemServico();
+                
+                ordemServico.setCodigo(rs.getInt(1));
+                ordemServico.setData_hora(rs.getString(2));
+                ordemServico.setTipo(rs.getString(3));
+                ordemServico.setSituacao(rs.getString(4));
+                ordemServico.setEquipamento(rs.getString(5));
+                ordemServico.setDefeito(rs.getString(6));
+                ordemServico.setServico(rs.getString(7));
+                ordemServico.setTecnico(rs.getString(8));
+                ordemServico.setValor(rs.getDouble(9));
+                ordemServico.setIdCliente(rs.getInt(10));
+                
+                return ordemServico; 
+            }else{
+                return null;
+            }
+            
+        }catch(Exception e){
+            System.out.println("Erro no método pesquisarOs() -> "+e.getMessage());
+            System.out.println(e);
+            e.printStackTrace();
+        }finally{
+            ConnectionFactory.fecharConexao(con, acessoBD,rs);
+        }
+        return null;
     }
     
 }

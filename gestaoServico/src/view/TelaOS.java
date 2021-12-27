@@ -64,6 +64,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
         jLabel1.setText("Data");
 
         jTextField_data.setEditable(false);
+        jTextField_data.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         buttonGroup1.add(jRadioButton_orcamento);
         jRadioButton_orcamento.setText("Orçamento");
@@ -90,26 +91,31 @@ public class TelaOS extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jRadioButton_orcamento)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton_ordemServico))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jTextField_numeroOS, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(45, 45, 45)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jTextField_data, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox_situacao, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jRadioButton_orcamento)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButton_ordemServico))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jTextField_numeroOS, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(45, 45, 45)
+                                        .addComponent(jLabel1)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTextField_data, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(15, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox_situacao, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -218,6 +224,11 @@ public class TelaOS extends javax.swing.JInternalFrame {
         jButton_consultar.setMaximumSize(new java.awt.Dimension(80, 80));
         jButton_consultar.setMinimumSize(new java.awt.Dimension(80, 80));
         jButton_consultar.setPreferredSize(new java.awt.Dimension(80, 80));
+        jButton_consultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_consultarActionPerformed(evt);
+            }
+        });
 
         jButton_editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/update.png"))); // NOI18N
         jButton_editar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -381,6 +392,46 @@ public class TelaOS extends javax.swing.JInternalFrame {
             limparEntradas();
         }
     }//GEN-LAST:event_jButton_adicionarActionPerformed
+
+    private void jButton_consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_consultarActionPerformed
+        String id_Pesquisado = JOptionPane.showInputDialog(this,"Informe o Id da Ordem de Serviço que deseja procurar:","Pergunta", JOptionPane.QUESTION_MESSAGE);
+        
+        if(id_Pesquisado != null){ // se for null quer dizer que ele cancelo.
+            OrdemServicoDAO ordemServicoDAO = new OrdemServicoDAO();
+        
+            OrdemServico ordemServicoPesquisado = ordemServicoDAO.pesquisarOs(id_Pesquisado);
+
+            if(ordemServicoPesquisado == null){
+                JOptionPane.showMessageDialog(null, "Ordem de Serviço não existe!","Aviso",JOptionPane.INFORMATION_MESSAGE);
+                limparEntradas();
+            }else{
+                
+                jTextField_numeroOS.setText(String.valueOf(ordemServicoPesquisado.getCodigo()));
+                jTextField_data.setText(ordemServicoPesquisado.getData_hora());
+                
+                if(ordemServicoPesquisado.getTipo().equals("Orçamento")){
+                    jRadioButton_orcamento.setSelected(true);
+                    tipo = "Orçamento";
+                }else{
+                    jRadioButton_ordemServico.setSelected(true);
+                    tipo = "Ordem de Serviço";
+                }
+                
+                jComboBox_situacao.setSelectedItem(ordemServicoPesquisado.getSituacao());
+                jTextField_equipamento.setText(ordemServicoPesquisado.getEquipamento());
+                jTextField_defeito.setText(ordemServicoPesquisado.getDefeito());
+                jTextField_servico.setText(ordemServicoPesquisado.getServico());
+                jTextField_tecnico.setText(ordemServicoPesquisado.getTecnico());
+                jTextField_valorTotal.setText(String.valueOf(ordemServicoPesquisado.getValor()));
+                id = ordemServicoPesquisado.getIdCliente();
+                
+                jButton_adicionar.setEnabled(false);
+                jTextField_nomePesquisado.setEnabled(false);
+                jTable_clientes.setVisible(false);
+            }
+        }
+        
+    }//GEN-LAST:event_jButton_consultarActionPerformed
     
     public void limparEntradas(){
         id = 0;
