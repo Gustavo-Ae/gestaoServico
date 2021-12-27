@@ -1,12 +1,16 @@
 
 package view;
 
+import controller.OrdemServico;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.dao.ClienteDAO;
+import model.dao.OrdemServicoDAO;
 
 
 public class TelaOS extends javax.swing.JInternalFrame {
-
-
+    int id;
+    String tipo;
     public TelaOS() {
         initComponents();
     }
@@ -63,11 +67,21 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
         buttonGroup1.add(jRadioButton_orcamento);
         jRadioButton_orcamento.setText("Orçamento");
+        jRadioButton_orcamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton_orcamentoActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton_ordemServico);
         jRadioButton_ordemServico.setText("Ordem de Serviço");
+        jRadioButton_ordemServico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton_ordemServicoActionPerformed(evt);
+            }
+        });
 
-        jComboBox_situacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Entrega OK", "Orçamento REPROVADO", "Aguardando Aprovação", "Aguardando Peça", "Abandonado pelo Cliente", "Na bancada", "Retornou" }));
+        jComboBox_situacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Na bancada", "Entrega OK", "Orçamento REPROVADO", "Aguardando Aprovação", "Aguardando Peça", "Abandonado pelo Cliente", "Retornou" }));
 
         jLabel2.setText("Situação :");
 
@@ -193,6 +207,11 @@ public class TelaOS extends javax.swing.JInternalFrame {
         jButton_adicionar.setMaximumSize(new java.awt.Dimension(80, 80));
         jButton_adicionar.setMinimumSize(new java.awt.Dimension(80, 80));
         jButton_adicionar.setPreferredSize(new java.awt.Dimension(80, 80));
+        jButton_adicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_adicionarActionPerformed(evt);
+            }
+        });
 
         jButton_consultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/read.png"))); // NOI18N
         jButton_consultar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -317,6 +336,64 @@ public class TelaOS extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jTextField_nomePesquisadoKeyReleased
 
+    private void jRadioButton_orcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_orcamentoActionPerformed
+        tipo = "Orçamento";
+        
+    }//GEN-LAST:event_jRadioButton_orcamentoActionPerformed
+
+    private void jRadioButton_ordemServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_ordemServicoActionPerformed
+        tipo = "Ordem de Serviço";
+
+    }//GEN-LAST:event_jRadioButton_ordemServicoActionPerformed
+
+    private void jButton_adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_adicionarActionPerformed
+        id = Integer.parseInt(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 0).toString());
+        
+        if(tipo == null){
+            JOptionPane.showMessageDialog(this, "Selecione o Tipo","Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }else if(jComboBox_situacao.getSelectedItem() == null){
+            JOptionPane.showMessageDialog(this, "Selecione a Situação","Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(jTextField_equipamento.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Informe o Equipamento","Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(jTextField_defeito.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Informe o Defeito","Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(id == 0){
+            JOptionPane.showMessageDialog(this, "Selecione algum Cliente na tabela","Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            OrdemServicoDAO ordemServicoDAO = new OrdemServicoDAO();
+        
+            OrdemServico ordemServico = new OrdemServico();
+            
+            ordemServico.setTipo(tipo);
+            ordemServico.setSituacao(jComboBox_situacao.getSelectedItem().toString());
+            ordemServico.setEquipamento(jTextField_equipamento.getText());
+            ordemServico.setDefeito(jTextField_defeito.getText());
+            ordemServico.setServico(jTextField_servico.getText());
+            ordemServico.setTecnico(jTextField_tecnico.getText());
+            ordemServico.setValor(Double.parseDouble(jTextField_valorTotal.getText()));
+            ordemServico.setIdCliente(id);
+            
+            ordemServicoDAO.emitirOs(ordemServico);
+            
+            limparEntradas();
+        }
+    }//GEN-LAST:event_jButton_adicionarActionPerformed
+    
+    public void limparEntradas(){
+        id = 0;
+        jComboBox_situacao.setSelectedIndex(0);
+        buttonGroup1.clearSelection();
+        jTextField_equipamento.setText("");
+        jTextField_defeito.setText("");
+        jTextField_servico.setText("");
+        jTextField_tecnico.setText("");
+        jTextField_valorTotal.setText("");
+        jTextField_nomePesquisado.setText("");
+        ((DefaultTableModel) jTable_clientes.getModel()).setRowCount(0);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
