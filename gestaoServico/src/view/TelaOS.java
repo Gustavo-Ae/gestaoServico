@@ -235,6 +235,11 @@ public class TelaOS extends javax.swing.JInternalFrame {
         jButton_editar.setMaximumSize(new java.awt.Dimension(80, 80));
         jButton_editar.setMinimumSize(new java.awt.Dimension(80, 80));
         jButton_editar.setPreferredSize(new java.awt.Dimension(80, 80));
+        jButton_editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_editarActionPerformed(evt);
+            }
+        });
 
         jButton_deletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/delete.png"))); // NOI18N
         jButton_deletar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -358,7 +363,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jRadioButton_ordemServicoActionPerformed
 
     private void jButton_adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_adicionarActionPerformed
-        id = Integer.parseInt(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 0).toString());
+        int idCliente = Integer.parseInt(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 0).toString());
         
         if(tipo == null){
             JOptionPane.showMessageDialog(this, "Selecione o Tipo","Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -371,7 +376,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
         else if(jTextField_defeito.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, "Informe o Defeito","Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
-        else if(id == 0){
+        else if(idCliente == 0){
             JOptionPane.showMessageDialog(this, "Selecione algum Cliente na tabela","Aviso", JOptionPane.INFORMATION_MESSAGE);
         }else{
             OrdemServicoDAO ordemServicoDAO = new OrdemServicoDAO();
@@ -385,7 +390,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
             ordemServico.setServico(jTextField_servico.getText());
             ordemServico.setTecnico(jTextField_tecnico.getText());
             ordemServico.setValor(Double.parseDouble(jTextField_valorTotal.getText()));
-            ordemServico.setIdCliente(id);
+            ordemServico.setIdCliente(idCliente);
             
             ordemServicoDAO.emitirOs(ordemServico);
             
@@ -405,6 +410,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Ordem de Serviço não existe!","Aviso",JOptionPane.INFORMATION_MESSAGE);
                 limparEntradas();
             }else{
+                id = ordemServicoPesquisado.getCodigo();
                 
                 jTextField_numeroOS.setText(String.valueOf(ordemServicoPesquisado.getCodigo()));
                 jTextField_data.setText(ordemServicoPesquisado.getData_hora());
@@ -423,8 +429,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                 jTextField_servico.setText(ordemServicoPesquisado.getServico());
                 jTextField_tecnico.setText(ordemServicoPesquisado.getTecnico());
                 jTextField_valorTotal.setText(String.valueOf(ordemServicoPesquisado.getValor()));
-                id = ordemServicoPesquisado.getIdCliente();
-                
+           
                 jButton_adicionar.setEnabled(false);
                 jTextField_nomePesquisado.setEnabled(false);
                 jTable_clientes.setVisible(false);
@@ -432,9 +437,58 @@ public class TelaOS extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_jButton_consultarActionPerformed
+
+    private void jButton_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_editarActionPerformed
+
+        if(id != 0){
+            int perguntaConfirmar = JOptionPane.showConfirmDialog(this,"Realmente deseja alterar a Ordem de Serviço com \n id: "+id,"Pergunta",JOptionPane.YES_NO_OPTION);
+             
+            if(perguntaConfirmar == 0){
+                if(tipo == null){
+                    JOptionPane.showMessageDialog(this, "Selecione o Tipo","Aviso", JOptionPane.INFORMATION_MESSAGE);
+                }else if(jComboBox_situacao.getSelectedItem() == null){
+                    JOptionPane.showMessageDialog(this, "Selecione a Situação","Aviso", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else if(jTextField_equipamento.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(this, "Informe o Equipamento","Aviso", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else if(jTextField_defeito.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(this, "Informe o Defeito","Aviso", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    OrdemServicoDAO ordemServicoDAO = new OrdemServicoDAO();
+                    
+                    OrdemServico ordemServico = new OrdemServico();
+                    
+                    ordemServico.setCodigo(id);
+                    ordemServico.setTipo(tipo);
+                    ordemServico.setSituacao(jComboBox_situacao.getSelectedItem().toString());
+                    ordemServico.setEquipamento(jTextField_equipamento.getText());
+                    ordemServico.setDefeito(jTextField_defeito.getText());
+                    ordemServico.setServico(jTextField_servico.getText());
+                    ordemServico.setTecnico(jTextField_tecnico.getText());
+                    ordemServico.setValor(Double.parseDouble(jTextField_valorTotal.getText()));
+                    
+                    ordemServicoDAO.updateOs(ordemServico);
+                    
+                    limparEntradas();
+                    
+                    jButton_adicionar.setEnabled(true);
+                    jTextField_nomePesquisado.setEnabled(true);
+                    jTable_clientes.setVisible(true);
+                    
+                }
+            }
+        }else{
+            JOptionPane.showMessageDialog(this,"Consulte a Ordem de Serviço antes de alterar!","Aviso",JOptionPane.INFORMATION_MESSAGE);
+            
+       }
+
+    }//GEN-LAST:event_jButton_editarActionPerformed
     
     public void limparEntradas(){
         id = 0;
+        jTextField_numeroOS.setText("");
+        jTextField_data.setText("");
         jComboBox_situacao.setSelectedIndex(0);
         buttonGroup1.clearSelection();
         jTextField_equipamento.setText("");

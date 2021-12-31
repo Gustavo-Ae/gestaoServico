@@ -6,6 +6,7 @@ import controller.OrdemServico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 
@@ -77,6 +78,36 @@ public class OrdemServicoDAO {
             ConnectionFactory.fecharConexao(con, acessoBD,rs);
         }
         return null;
+    }
+    
+    public void updateOs(OrdemServico ordemServico){
+        
+        Connection con = ConnectionFactory.getConexao();
+       
+        PreparedStatement acessoBD = null;
+        
+        try{
+            acessoBD = con.prepareStatement("UPDATE tb_ordemservico SET tipo = ?, situacao = ?, equipamento = ?, defeito = ?, servico = ?, tecnico = ?, valor = ? WHERE codigo = ?");
+            
+            acessoBD.setString(1, ordemServico.getTipo());
+            acessoBD.setString(2, ordemServico.getSituacao());
+            acessoBD.setString(3, ordemServico.getEquipamento());
+            acessoBD.setString(4, ordemServico.getDefeito());
+            acessoBD.setString(5, ordemServico.getServico());
+            acessoBD.setString(6, ordemServico.getTecnico());
+            acessoBD.setDouble(7, ordemServico.getValor());
+            acessoBD.setInt(8, ordemServico.getCodigo());
+            
+            acessoBD.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso","Aviso", JOptionPane.INFORMATION_MESSAGE);
+            
+        }catch(SQLException sql){
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar o banco de dados","ERRO",JOptionPane.ERROR_MESSAGE);
+            throw new RuntimeException(sql);    
+        }finally{
+            ConnectionFactory.fecharConexao(con, acessoBD);
+        }   
     }
     
 }
