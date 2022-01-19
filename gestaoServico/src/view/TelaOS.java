@@ -246,6 +246,11 @@ public class TelaOS extends javax.swing.JInternalFrame {
         jButton_deletar.setMaximumSize(new java.awt.Dimension(80, 80));
         jButton_deletar.setMinimumSize(new java.awt.Dimension(80, 80));
         jButton_deletar.setPreferredSize(new java.awt.Dimension(80, 80));
+        jButton_deletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_deletarActionPerformed(evt);
+            }
+        });
 
         jButton_print.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/print.png"))); // NOI18N
         jButton_print.setToolTipText("Imprimir OS");
@@ -484,6 +489,35 @@ public class TelaOS extends javax.swing.JInternalFrame {
        }
 
     }//GEN-LAST:event_jButton_editarActionPerformed
+
+    private void jButton_deletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_deletarActionPerformed
+        if(id != 0){
+            int perguntaConfirmar = JOptionPane.showConfirmDialog(this, "Realmente deseja deletar "+tipo+" com \n id: "+id,"Pergunta",JOptionPane.YES_NO_OPTION);
+            
+            if(perguntaConfirmar == 0){
+                OrdemServicoDAO ordemServicoDAO = new OrdemServicoDAO();
+                
+                OrdemServico ordemServico = new OrdemServico();
+                
+                ordemServico.setCodigo(id);
+                ordemServico.setTipo(tipo);
+                
+                ordemServicoDAO.deletar(ordemServico);
+                
+                id = 0;
+                
+                limparEntradas();         
+                
+                jButton_adicionar.setEnabled(true);
+                jTextField_nomePesquisado.setEnabled(true);
+                jTable_clientes.setVisible(true);   
+            }
+            
+        }else{
+            JOptionPane.showMessageDialog(this, "Consulte antes de deletar!","Aviso",JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jButton_deletarActionPerformed
     
     public void limparEntradas(){
         id = 0;

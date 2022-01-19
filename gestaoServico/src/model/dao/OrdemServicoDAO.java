@@ -110,4 +110,27 @@ public class OrdemServicoDAO {
         }   
     }
     
+    public void deletar(OrdemServico ordemServico){
+        
+        Connection con = ConnectionFactory.getConexao();
+            
+        PreparedStatement acessoBD = null;
+        
+        try{
+            acessoBD = con.prepareStatement("DELETE FROM tb_ordemservico WHERE codigo = ?");
+            
+            acessoBD.setInt(1, ordemServico.getCodigo());
+            
+            acessoBD.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, ordemServico.getTipo()+" deletado com sucesso","Aviso", JOptionPane.INFORMATION_MESSAGE);
+            
+        }catch(SQLException sql){
+            JOptionPane.showMessageDialog(null,"Erro ao deletar "+ordemServico.getTipo()+" no banco de dados", "ERRO", JOptionPane.ERROR_MESSAGE);
+            throw new RuntimeException("Houve um erro no método deletar() :",sql);
+        }finally{
+            ConnectionFactory.fecharConexao(con, acessoBD);
+        }
+    }
+    
 }
