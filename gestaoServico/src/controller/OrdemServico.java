@@ -4,7 +4,7 @@ package controller;
 
 public class OrdemServico{
     private int codigo;
-    private String data_hora; // POR ENQUANTO
+    private String data_hora; 
     private String tipo;
     private String situacao;
     private String equipamento;
