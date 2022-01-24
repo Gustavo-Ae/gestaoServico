@@ -232,6 +232,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
         jButton_editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/update.png"))); // NOI18N
         jButton_editar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_editar.setEnabled(false);
         jButton_editar.setMaximumSize(new java.awt.Dimension(80, 80));
         jButton_editar.setMinimumSize(new java.awt.Dimension(80, 80));
         jButton_editar.setPreferredSize(new java.awt.Dimension(80, 80));
@@ -243,6 +244,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
         jButton_deletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/delete.png"))); // NOI18N
         jButton_deletar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_deletar.setEnabled(false);
         jButton_deletar.setMaximumSize(new java.awt.Dimension(80, 80));
         jButton_deletar.setMinimumSize(new java.awt.Dimension(80, 80));
         jButton_deletar.setPreferredSize(new java.awt.Dimension(80, 80));
@@ -255,6 +257,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
         jButton_print.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/print.png"))); // NOI18N
         jButton_print.setToolTipText("Imprimir OS");
         jButton_print.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_print.setEnabled(false);
         jButton_print.setMaximumSize(new java.awt.Dimension(80, 80));
         jButton_print.setMinimumSize(new java.awt.Dimension(80, 80));
         jButton_print.addActionListener(new java.awt.event.ActionListener() {
@@ -438,6 +441,10 @@ public class TelaOS extends javax.swing.JInternalFrame {
                 jButton_adicionar.setEnabled(false);
                 jTextField_nomePesquisado.setEnabled(false);
                 jTable_clientes.setVisible(false);
+                
+                jButton_editar.setEnabled(true);
+                jButton_deletar.setEnabled(true);
+                jButton_print.setEnabled(true);
             }
         }
         
