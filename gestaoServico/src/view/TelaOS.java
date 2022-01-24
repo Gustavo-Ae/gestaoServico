@@ -48,7 +48,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
         jButton_consultar = new javax.swing.JButton();
         jButton_editar = new javax.swing.JButton();
         jButton_deletar = new javax.swing.JButton();
-        jButton_print = new javax.swing.JButton();
+        jButton_imprimir = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -254,15 +254,15 @@ public class TelaOS extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton_print.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/print.png"))); // NOI18N
-        jButton_print.setToolTipText("Imprimir OS");
-        jButton_print.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton_print.setEnabled(false);
-        jButton_print.setMaximumSize(new java.awt.Dimension(80, 80));
-        jButton_print.setMinimumSize(new java.awt.Dimension(80, 80));
-        jButton_print.addActionListener(new java.awt.event.ActionListener() {
+        jButton_imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/print.png"))); // NOI18N
+        jButton_imprimir.setToolTipText("Imprimir OS");
+        jButton_imprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_imprimir.setEnabled(false);
+        jButton_imprimir.setMaximumSize(new java.awt.Dimension(80, 80));
+        jButton_imprimir.setMinimumSize(new java.awt.Dimension(80, 80));
+        jButton_imprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_printActionPerformed(evt);
+                jButton_imprimirActionPerformed(evt);
             }
         });
 
@@ -288,7 +288,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                         .addGap(26, 26, 26)
                         .addComponent(jButton_deletar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
-                        .addComponent(jButton_print, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton_imprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -342,16 +342,16 @@ public class TelaOS extends javax.swing.JInternalFrame {
                     .addComponent(jButton_consultar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_editar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_deletar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_print, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton_imprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(29, 29, 29))
         );
 
         setBounds(0, 0, 639, 480);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton_printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_printActionPerformed
+    private void jButton_imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_imprimirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_printActionPerformed
+    }//GEN-LAST:event_jButton_imprimirActionPerformed
 
     private void jTextField_nomePesquisadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_nomePesquisadoKeyReleased
         ClienteDAO clienteDAO = new ClienteDAO();
@@ -444,7 +444,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                 
                 jButton_editar.setEnabled(true);
                 jButton_deletar.setEnabled(true);
-                jButton_print.setEnabled(true);
+                jButton_imprimir.setEnabled(true);
             }
         }
         
@@ -511,8 +511,6 @@ public class TelaOS extends javax.swing.JInternalFrame {
                 
                 ordemServicoDAO.deletar(ordemServico);
                 
-                id = 0;
-                
                 limparEntradas();         
                 
                 jButton_adicionar.setEnabled(true);
@@ -547,7 +545,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton_consultar;
     private javax.swing.JButton jButton_deletar;
     private javax.swing.JButton jButton_editar;
-    private javax.swing.JButton jButton_print;
+    private javax.swing.JButton jButton_imprimir;
     private javax.swing.JComboBox jComboBox_situacao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

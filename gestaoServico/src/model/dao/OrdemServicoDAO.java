@@ -47,7 +47,7 @@ public class OrdemServicoDAO {
         ResultSet rs = null;
         
         try{
-            acessoBD = con.prepareStatement("SELECT * FROM tb_ordemservico WHERE codigo = ?");
+            acessoBD = con.prepareStatement("select codigo,date_format(data_hora,'%d/%m/%Y - %H:%i'),tipo,situacao,equipamento,defeito,servico,tecnico,valor,idCliente from tb_ordemservico where codigo = ?");
             acessoBD.setString(1, id);
             rs = acessoBD.executeQuery();
             
