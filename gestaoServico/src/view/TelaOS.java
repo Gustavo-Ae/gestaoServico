@@ -371,7 +371,14 @@ public class TelaOS extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jRadioButton_ordemServicoActionPerformed
 
     private void jButton_adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_adicionarActionPerformed
-        int idCliente = Integer.parseInt(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 0).toString());
+        int idCliente = 0;
+                
+        try{
+            idCliente = Integer.parseInt(jTable_clientes.getValueAt(jTable_clientes.getSelectedRow(), 0).toString()); 
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Selecione algum Cliente na tabela","Aviso", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         
         if(tipo == null){
             JOptionPane.showMessageDialog(this, "Selecione o Tipo","Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -383,9 +390,8 @@ public class TelaOS extends javax.swing.JInternalFrame {
         }
         else if(jTextField_defeito.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, "Informe o Defeito","Aviso", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else if(idCliente == 0){
-            JOptionPane.showMessageDialog(this, "Selecione algum Cliente na tabela","Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }else if(jTextField_valorTotal.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Informe o Valor Total","Aviso", JOptionPane.INFORMATION_MESSAGE);
         }else{
             OrdemServicoDAO ordemServicoDAO = new OrdemServicoDAO();
         
@@ -466,6 +472,8 @@ public class TelaOS extends javax.swing.JInternalFrame {
                 }
                 else if(jTextField_defeito.getText().isEmpty()){
                     JOptionPane.showMessageDialog(this, "Informe o Defeito","Aviso", JOptionPane.INFORMATION_MESSAGE);
+                }else if(jTextField_valorTotal.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(this, "Informe o Valor Total","Aviso", JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     OrdemServicoDAO ordemServicoDAO = new OrdemServicoDAO();
                     
