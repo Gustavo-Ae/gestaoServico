@@ -1,9 +1,14 @@
 
 package view;
 
+import connection.ConnectionFactory;
+import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class TelaPrincipal extends javax.swing.JFrame {
 
@@ -26,6 +31,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem_cadastroOrdemServico = new javax.swing.JMenuItem();
         jMenuItem_cadastroUsuario = new javax.swing.JMenuItem();
         jMenu_relatorio = new javax.swing.JMenu();
+        jMenuItem_relatorioClientes = new javax.swing.JMenuItem();
         jMenuItem_relatorioServicos = new javax.swing.JMenuItem();
         jMenu_opcoes = new javax.swing.JMenu();
         jMenuItem_sair = new javax.swing.JMenuItem();
@@ -98,8 +104,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu_relatorio.setText("Relatório");
         jMenu_relatorio.setEnabled(false);
 
-        jMenuItem_relatorioServicos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem_relatorioServicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/servicos.png"))); // NOI18N
+        jMenuItem_relatorioClientes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK));
+        jMenuItem_relatorioClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/relatorioCliente.png"))); // NOI18N
+        jMenuItem_relatorioClientes.setText("Clientes");
+        jMenuItem_relatorioClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_relatorioClientesActionPerformed(evt);
+            }
+        });
+        jMenu_relatorio.add(jMenuItem_relatorioClientes);
+
+        jMenuItem_relatorioServicos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK));
+        jMenuItem_relatorioServicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/relatorioServicos.png"))); // NOI18N
         jMenuItem_relatorioServicos.setText("Serviços");
         jMenuItem_relatorioServicos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -175,7 +191,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem_sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_sairActionPerformed
 
-        int sair = JOptionPane.showConfirmDialog(null,"Tem certeza que deseja sair?","Aviso",JOptionPane.YES_NO_OPTION);
+        int sair = JOptionPane.showConfirmDialog(null,"Tem certeza que deseja sair?","Pergunta",JOptionPane.YES_NO_OPTION);
 
         if(sair == JOptionPane.YES_OPTION){
             System.exit(0);
@@ -204,6 +220,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
         os.setVisible(true);
         jDesktopPane_areaTrabalho.add(os);
     }//GEN-LAST:event_jMenuItem_cadastroOrdemServicoActionPerformed
+
+    private void jMenuItem_relatorioClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_relatorioClientesActionPerformed
+        int confirma = JOptionPane.showConfirmDialog(null, "Deseja imprimir o relatório de clientes ?","Pergunta",JOptionPane.YES_NO_OPTION);
+        
+        if(confirma == JOptionPane.YES_OPTION){
+            
+            try{
+                Connection conexao = ConnectionFactory.getConexao();
+                JasperPrint print = JasperFillManager.fillReport("C:/reports/clientes.jasper",null,conexao);
+                JasperViewer.viewReport(print,false);
+            }catch(Exception e){
+                
+            }
+        }
+        
+    }//GEN-LAST:event_jMenuItem_relatorioClientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -249,6 +281,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem_cadastroCliente;
     private javax.swing.JMenuItem jMenuItem_cadastroOrdemServico;
     public static javax.swing.JMenuItem jMenuItem_cadastroUsuario;
+    private javax.swing.JMenuItem jMenuItem_relatorioClientes;
     private javax.swing.JMenuItem jMenuItem_relatorioServicos;
     private javax.swing.JMenuItem jMenuItem_sair;
     private javax.swing.JMenu jMenu_cadastro;

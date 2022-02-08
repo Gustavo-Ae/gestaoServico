@@ -13,9 +13,9 @@ public class ConnectionFactory{
 
     private static final String URL = "jdbc:mysql://localhost/dbinfo";
 
-    private static final String USER = "root";
+    private static final String USER = "root"; 
 
-    private static final String PASS = "";
+    private static final String PASS = ""; 
         
     public static Connection getConexao(){
         try{
