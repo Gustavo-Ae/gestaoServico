@@ -7,7 +7,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 
 public class OrdemServicoDAO {
@@ -133,4 +137,23 @@ public class OrdemServicoDAO {
         }
     }
     
+    public void imprimirOS(OrdemServico ordemServico){
+          int confirma = JOptionPane.showConfirmDialog(null, "Deseja imprimir "+ordemServico.getTipo()+" ?","Pergunta",JOptionPane.YES_NO_OPTION);
+        
+        if(confirma == JOptionPane.YES_OPTION){
+            
+            try{
+                // Usando a classe HashMap para criar um filtro
+                HashMap filtro = new HashMap();
+                filtro.put("codigo",ordemServico.getCodigo());
+                
+                Connection conexao = ConnectionFactory.getConexao();
+                JasperPrint print = JasperFillManager.fillReport("C:/reports/ordemServico.jasper",filtro,conexao);
+                JasperViewer.viewReport(print,false);
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null,"Erro na hora de imprimir a Ordem de Serviço","ERRO",JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        }
+    }
 }

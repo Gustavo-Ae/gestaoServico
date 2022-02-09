@@ -1,11 +1,17 @@
 
 package view;
 
+import connection.ConnectionFactory;
 import controller.OrdemServico;
+import java.sql.Connection;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.dao.ClienteDAO;
 import model.dao.OrdemServicoDAO;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 
 public class TelaOS extends javax.swing.JInternalFrame {
@@ -350,7 +356,15 @@ public class TelaOS extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_imprimirActionPerformed
-        // TODO add your handling code here:
+
+        OrdemServico ordemServico = new OrdemServico();
+        ordemServico.setCodigo(id);
+        ordemServico.setTipo(tipo);
+        
+        OrdemServicoDAO ordemServicoDAO = new OrdemServicoDAO();
+        ordemServicoDAO.imprimirOS(ordemServico);
+        
+        
     }//GEN-LAST:event_jButton_imprimirActionPerformed
 
     private void jTextField_nomePesquisadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_nomePesquisadoKeyReleased
