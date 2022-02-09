@@ -203,7 +203,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem_sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_sairActionPerformed
 
-        int sair = JOptionPane.showConfirmDialog(null,"Tem certeza que deseja sair?","Pergunta",JOptionPane.YES_NO_OPTION);
+        int sair = JOptionPane.showConfirmDialog(jDesktopPane_areaTrabalho,"Tem certeza que deseja sair?","Pergunta",JOptionPane.YES_NO_OPTION);
 
         if(sair == JOptionPane.YES_OPTION){
             System.exit(0);
@@ -234,7 +234,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem_cadastroOrdemServicoActionPerformed
 
     private void jMenuItem_relatorioClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_relatorioClientesActionPerformed
-        int confirma = JOptionPane.showConfirmDialog(null, "Deseja imprimir o relatório de clientes ?","Pergunta",JOptionPane.YES_NO_OPTION);
+        int confirma = JOptionPane.showConfirmDialog(jDesktopPane_areaTrabalho, "Deseja imprimir o relatório de clientes ?","Pergunta",JOptionPane.YES_NO_OPTION);
         
         if(confirma == JOptionPane.YES_OPTION){
             
@@ -243,7 +243,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 JasperPrint print = JasperFillManager.fillReport("C:/reports/clientes.jasper",null,conexao);
                 JasperViewer.viewReport(print,false);
             }catch(Exception e){
-                JOptionPane.showMessageDialog(this,"Erro na hora de imprimir o relatorio de clientes","ERRO",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(jDesktopPane_areaTrabalho,"Erro na hora de imprimir o relatorio de clientes","ERRO",JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
             }
         }
