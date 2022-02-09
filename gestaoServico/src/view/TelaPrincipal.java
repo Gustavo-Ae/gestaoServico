@@ -178,7 +178,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem_relatorioServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_relatorioServicosActionPerformed
-        // TODO add your handling code here:
+        int confirma = JOptionPane.showConfirmDialog(jDesktopPane_areaTrabalho, "Deseja imprimir o relatório de serviços ? ","Pergunta",JOptionPane.YES_NO_OPTION);
+        
+        if(confirma == JOptionPane.YES_OPTION){
+             try{
+                Connection conexao = ConnectionFactory.getConexao();
+                JasperPrint print = JasperFillManager.fillReport("C:/reports/servicos.jasper",null,conexao);
+                JasperViewer.viewReport(print,false);
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(this,"Erro na hora de imprimir o relatório de serviços","ERRO",JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        }
+        
     }//GEN-LAST:event_jMenuItem_relatorioServicosActionPerformed
 
     private void jMenuItem_cadastroUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_cadastroUsuarioActionPerformed
@@ -231,7 +243,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 JasperPrint print = JasperFillManager.fillReport("C:/reports/clientes.jasper",null,conexao);
                 JasperViewer.viewReport(print,false);
             }catch(Exception e){
-                
+                JOptionPane.showMessageDialog(this,"Erro na hora de imprimir o relatorio de clientes","ERRO",JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
             }
         }
         
