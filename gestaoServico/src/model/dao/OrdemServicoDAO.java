@@ -138,7 +138,7 @@ public class OrdemServicoDAO {
     }
     
     public void imprimirOS(OrdemServico ordemServico){
-          int confirma = JOptionPane.showConfirmDialog(null, "Deseja imprimir "+ordemServico.getTipo()+" ?","Pergunta",JOptionPane.YES_NO_OPTION);
+        int confirma = JOptionPane.showConfirmDialog(null,"Deseja imprimir "+ordemServico.getTipo()+" ?","Pergunta",JOptionPane.YES_NO_OPTION);
         
         if(confirma == JOptionPane.YES_OPTION){
             
@@ -156,4 +156,30 @@ public class OrdemServicoDAO {
             }
         }
     }
+    
+    public int recuperarCodigo_Os(){
+        Connection con = ConnectionFactory.getConexao();
+        PreparedStatement acessoBD = null;
+        ResultSet rs = null;
+        
+        try{
+            acessoBD = con.prepareStatement("select max(codigo) from tb_ordemservico");
+            rs = acessoBD.executeQuery();
+            
+            if(rs.next()){
+                return rs.getInt(1); 
+            }else{
+                return 0;
+            }
+            
+        }catch(Exception e){
+            System.out.println("Erro no método pesquisarOs() -> "+e.getMessage());
+            System.out.println(e);
+            e.printStackTrace();
+        }finally{
+            ConnectionFactory.fecharConexao(con, acessoBD,rs);
+        }
+        return 0;
+    }
+    
 }

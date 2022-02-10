@@ -356,15 +356,20 @@ public class TelaOS extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_imprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_imprimirActionPerformed
-
-        OrdemServico ordemServico = new OrdemServico();
-        ordemServico.setCodigo(id);
-        ordemServico.setTipo(tipo);
         
         OrdemServicoDAO ordemServicoDAO = new OrdemServicoDAO();
+        
+        OrdemServico ordemServico = new OrdemServico();
+        ordemServico.setCodigo(ordemServicoDAO.recuperarCodigo_Os());
+        ordemServico.setTipo(tipo);
+        
         ordemServicoDAO.imprimirOS(ordemServico);
         
+        jButton_imprimir.setEnabled(false);
+        jButton_consultar.setEnabled(true);
+        jButton_adicionar.setEnabled(true);
         
+        limparEntradas();
     }//GEN-LAST:event_jButton_imprimirActionPerformed
 
     private void jTextField_nomePesquisadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_nomePesquisadoKeyReleased
@@ -422,6 +427,10 @@ public class TelaOS extends javax.swing.JInternalFrame {
             
             ordemServicoDAO.emitirOs(ordemServico);
             
+            jButton_adicionar.setEnabled(false);
+            jButton_consultar.setEnabled(false);
+            jButton_imprimir.setEnabled(true);
+            
             limparEntradas();
         }
     }//GEN-LAST:event_jButton_adicionarActionPerformed
@@ -464,7 +473,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                 
                 jButton_editar.setEnabled(true);
                 jButton_deletar.setEnabled(true);
-                jButton_imprimir.setEnabled(true);
+                //jButton_imprimir.setEnabled(true);
             }
         }
         
